@@ -6,6 +6,9 @@ import { Provider } from 'react-redux';
 import store from './Redux/reducers/store';
 
 function App() {
+  const handleUpdate=(upTodo)=>{
+    return upTodo;
+  }
   return (
     <Provider store={store}>
     <Container>

@@ -2,7 +2,7 @@ import AddTodo from "../../components/AddTodo";
 import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from "../actions/action-types";
 
 const initialState=[];
-export default (state=initialState,action)=>{
+const todoReducer=(state=initialState,action)=>{
     switch(action.type){
         case ADD_TODO:  
                 return [...state,action.payload];
@@ -22,3 +22,5 @@ export default (state=initialState,action)=>{
     }
 
 }
+
+export default todoReducer;
