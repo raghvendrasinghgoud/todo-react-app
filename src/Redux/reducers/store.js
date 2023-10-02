@@ -1,6 +1,6 @@
 import { combineReducers, createStore } from "redux";
-import todoReducers from "./todo-reducers";
+import todoReducers, { upDataReducer } from "./todo-reducers";
 
-const rootReducers=combineReducers({todoReducers});
+const rootReducers=combineReducers({todoReducers,upDataReducer});
 const store=createStore(rootReducers);
 export default store;

@@ -2,21 +2,29 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
-import { addTodo } from '../Redux/actions/todo';
+import { addTodo,updateTodo } from '../Redux/actions/todo';
 import { connect } from 'react-redux';
 import { v4 } from 'uuid';
-const AddTodo = ({addTodo}) => {
-    const[todo,setTodo]=useState({title:'',description:'',id:''});
+import { useEffect } from 'react';
+const AddTodo = ({addTodo,oldTodo,updateTodo}) => {
+    const[todo,setTodo]=useState(oldTodo);
+    useEffect(() => {
+        setTodo(oldTodo);
+    }, [oldTodo]);
     const handleVal=(event)=>{
         event.preventDefault();
+        if(todo.id==='')
         //call reduc store
         addTodo({...todo,id:v4()});
-
+        else{
+            updateTodo(todo,todo.id);
+        }
         //clearing todo state
-        setTodo({title:'',description:''});
+        setTodo({id:'',title:'',description:''});
     }
 
     return (
+        <Container className='my-5'>
         <Form onSubmit={handleVal}>
             <Form.Group>
                 <Form.Label>Todo Title</Form.Label>
@@ -30,11 +38,17 @@ const AddTodo = ({addTodo}) => {
             <Button type='submit' variant="primary">Submit</Button>
             </Container>
         </Form>
+        </Container>
     );
 }
-const mapStateToProps=(state)=>({});
+const mapStateToProps=(state)=>{
+    return {
+        oldTodo:state.upDataReducer
+    }
+};
 
 const mapDispatchToProps=(dispatch)=>({
-    addTodo:(todo)=>(dispatch(addTodo(todo)))
+    addTodo:(todo)=>(dispatch(addTodo(todo))),
+    updateTodo:(todo,id)=>(dispatch(updateTodo(todo,id)))
 });
 export default connect(mapStateToProps,mapDispatchToProps) (AddTodo);

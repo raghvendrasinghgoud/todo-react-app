@@ -1,5 +1,5 @@
 import AddTodo from "../../components/AddTodo";
-import { ADD_TODO, DELETE_TODO, UPDATE_TODO } from "../actions/action-types";
+import { ADD_TODO, CLEARUPTODO, DELETE_TODO, UPDATE_TODO, UPTODO } from "../actions/action-types";
 
 const initialState=[];
 const todoReducer=(state=initialState,action)=>{
@@ -23,4 +23,17 @@ const todoReducer=(state=initialState,action)=>{
 
 }
 
+const initData={id:'',title:'',description:''};
+export const upDataReducer=(upTodo=initData,action)=>{
+    switch(action.type){
+        case UPTODO:
+                if(action.payload!==undefined)
+                upTodo=action.payload;
+                return upTodo;
+        case CLEARUPTODO:
+                upTodo=action.payload;
+                return upTodo;
+        default: return upTodo;
+    }
+}
 export default todoReducer;

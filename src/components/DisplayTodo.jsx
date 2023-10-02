@@ -1,11 +1,11 @@
 import { Card, Container, ListGroup } from 'react-bootstrap';
 import DisplayCount from './DisplayCount';
 import { connect } from 'react-redux';
-import { deleteTodo } from '../Redux/actions/todo';
+import { deleteTodo,upTodo } from '../Redux/actions/todo';
 import Button from 'react-bootstrap/Button';
 
-const DisplayTodo = ({todos,deleteTodo}) => {
-    
+const DisplayTodo = ({todos,deleteTodo,upTodo}) => {
+
     return (
        
 
@@ -18,10 +18,16 @@ const DisplayTodo = ({todos,deleteTodo}) => {
                     {
                         todos.map((todo,index)=>(
                             <ListGroup.Item key={index}>
+                                
                                 <p>{todo.id}</p>
                                 <h4>{todo.title}</h4>
                                 <p>{todo.description}</p>
-                                <Button type='button' onClick={(event)=>deleteTodo(todo.id)} variant="danger">Delete</Button>
+                                
+                                
+                                    <Button type='button' onClick={(event)=>upTodo(todo)} variant="success">Update</Button>
+                                    <Button className='ms-2' type='button' onClick={(event)=>deleteTodo(todo.id)} variant="danger">Delete</Button>
+                                
+                    
                             </ListGroup.Item>
                         ))
                     }
@@ -33,11 +39,11 @@ const DisplayTodo = ({todos,deleteTodo}) => {
 }
 
 const mapStateToPros=(state)=>{
-    
     return {todos:state.todoReducers};
 }
 const mapDispatchToProps=(dispatch)=>({
-    deleteTodo:(id)=>(dispatch(deleteTodo(id)))
+    deleteTodo:(id)=>(dispatch(deleteTodo(id))),
+    upTodo:(todo)=>(dispatch(upTodo(todo)))
 });
 
 export default connect(mapStateToPros,mapDispatchToProps)(DisplayTodo);
